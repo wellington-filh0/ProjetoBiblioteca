@@ -15,20 +15,16 @@ public class BibliotecaController {
 		return "formAluno";
 	}
 	
-	@PostMapping("/submit")
+	@PostMapping("/adicionarAluno")
 	public String submetido(Aluno aluno) {
-		System.out.println("Dados do Aluno:");
-		System.out.println("Nome: " + aluno.getNome());
-		System.out.println("Matrícula: " + aluno.getMatricula());
-		System.out.println("Cpf: " + aluno.getCpf());
-		System.out.println("Nascimento: " + aluno.getNascimento());
-		System.out.println("Endereço: " + aluno.getEndereco());
+
+		System.out.println(aluno);
 
 		return "redirect:/success";
 	}
 
 	@GetMapping("/success")
 	public String successPage() {
-		return "success";
+		return "aluno-adicionado";
 	}
 }

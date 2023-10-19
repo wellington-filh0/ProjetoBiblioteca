@@ -66,4 +66,11 @@ public class Aluno {
 		this.endereco = endereco;
 	}
 
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", matricula=" + matricula + ", cpf=" + cpf + ", nascimento="
+				+ nascimento + ", endereco=" + endereco + "]";
+	}
+	
+
 }
