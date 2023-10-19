@@ -1,10 +1,28 @@
 package ifrn.biblioteca.biblioteca4.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity // Informando para criar uma tabela com os atributos dessa classe
 public class Aluno {
 
+	@Id //Para o Spring Data saber que esse é o id da tabela
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; //Toda tabela no banco de dados precisa de um id
 	private String nome;
 	private String matricula;
 	private String cpf;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private String nascimento;
 	private String endereco;
 
