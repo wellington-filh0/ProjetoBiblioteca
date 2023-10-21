@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+
+	<nav th:fragment="menu"> <!--Definindo esse bloco de códigos como fragmentos para que eu posso reutilizá-lo sem precisar reescreve-lo novamente-->
+		<div class="nav-wrapper container">
+			<a href="#" class="brand-logo">Biblioteca</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="/">Home</a></li>
+				<li><a href="/biblioteca/form">Adicionar Aluno</a></li>				
+			</ul>
+		</div>
+	</nav>
+
+</body>
+
+</html>
