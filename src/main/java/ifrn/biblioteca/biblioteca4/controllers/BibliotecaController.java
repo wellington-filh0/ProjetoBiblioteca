@@ -17,7 +17,7 @@ public class BibliotecaController {
 
 	@RequestMapping("/biblioteca/form")
 	public String form() {
-		return "formAluno";
+		return "biblioteca/formAluno";
 	}
 	
 	@PostMapping("/adicionarAluno")
@@ -31,6 +31,6 @@ public class BibliotecaController {
 
 	@GetMapping("/success")
 	public String successPage() {
-		return "aluno-adicionado";
+		return "biblioteca/aluno-adicionado";
 	}
 }
