@@ -8,12 +8,15 @@ import jakarta.persistence.Id;
 @Entity // Informando para criar uma tabela com os atributos dessa classe
 public class Aluno {
 
-	@Id //Para o Spring Data saber que esse é o id da tabela
+	@Id // Para o Spring Data saber que esse é o id da tabela
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; //Toda tabela no banco de dados precisa de um id
+	private Long id; // Toda tabela no banco de dados precisa de um id
+	
 	private String nome;
 	private String matricula;
 	private String cpf;
+	private String nascimento;
+	private String endereco;
 
 	public Long getId() {
 		return id;
@@ -22,9 +25,6 @@ public class Aluno {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	private String nascimento;
-	private String endereco;
 
 	public String getNome() {
 		return nome;
@@ -71,6 +71,5 @@ public class Aluno {
 		return "Aluno [id=" + id + ", nome=" + nome + ", matricula=" + matricula + ", cpf=" + cpf + ", nascimento="
 				+ nascimento + ", endereco=" + endereco + "]";
 	}
-	
 
 }

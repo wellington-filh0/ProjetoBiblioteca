@@ -33,4 +33,22 @@ public class BibliotecaController {
 	public String successPage() {
 		return "biblioteca/aluno-adicionado";
 	}
+	
+	@PostMapping("/alunoLogin")
+	public String login(Aluno aluno, Long Long) {
+
+		System.out.println(aluno);
+		boolean verificacao = ar.existsById(Long);
+		
+		if(verificacao == true) {
+			return "redirect:/alunoConectado";
+		}
+
+		return "biblioteca/formAluno";
+	}
+
+	@GetMapping("/alunoConectado")
+	public String loginAceito() {
+		return "biblioteca/alunoLogin";
+	}
 }

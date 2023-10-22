@@ -11,7 +11,22 @@
 <body>
 	<div th:replace="~{menu :: menu}"></div>
 	<div class="container">
-		<h1>O formulário foi enviado!</h1>
+		<h1>LOGIN</h1>
+		
+		<form action="alunoLogin" method="post">
+
+			<div>
+				<label>Nome</label> <input type="text" name="nome">
+			</div>
+			<div>
+				<label>Matrícula</label> <input type="text" name="matricula">
+			</div>
+			<div>
+				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
+				<button class="waves-effect waves-light btn" type="reset">Limpar</button>
+			</div>
+
+		</form>
 	</div>
 </body>
 
