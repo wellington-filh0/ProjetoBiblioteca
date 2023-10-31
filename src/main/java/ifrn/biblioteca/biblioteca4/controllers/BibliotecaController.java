@@ -28,7 +28,7 @@ public class BibliotecaController {
 		return "biblioteca/formAluno";
 	}
 	
-	@PostMapping("/adicionarAluno") //Post e Get do formAluno.html
+	@PostMapping("/adicionarAluno")
 	public String submetidoAluno(Aluno aluno) {
 
 		System.out.println(aluno);
@@ -49,7 +49,7 @@ public class BibliotecaController {
 		return "biblioteca/formLivro";
 	}
 	
-	@PostMapping("/adicionarLivro") //Post e Get do formLivro.html
+	@PostMapping("/adicionarLivro")
 	public String submetidoLivro(Livro livro) {
 
 		System.out.println(livro);
