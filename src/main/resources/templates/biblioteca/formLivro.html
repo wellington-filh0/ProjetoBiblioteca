@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Biblioteca</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+	<div th:replace="~{menu :: menu}"></div>
+
+	<div class="container">
+		<h1>Adicionar Livro</h1>
+
+		<form action="/adicionarLivro" method="post">
+
+
+			<div>
+				<label>Título</label> <input type="text" name="titulo">
+			</div>
+			<div>
+				<label>Autor</label> <input type="text" name="autor">
+			</div>
+			<div>
+				<label>Editora</label> <input type="text" name="editora">
+			</div>
+			<div>
+				<label>Ano de Publicação</label> <input type="text" name="anoPublicado">
+			</div>
+			<div>
+				<label>Edição</label> <input type="text" name="edicao">
+			</div>
+			<div>
+				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
+				<button class="waves-effect waves-light btn" type="reset">Limpar</button>
+			</div>
+
+		</form>
+	</div>
+</body>
+
+</html>
