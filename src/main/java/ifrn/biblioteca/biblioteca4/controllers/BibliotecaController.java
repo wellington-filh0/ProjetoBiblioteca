@@ -20,7 +20,7 @@ public class BibliotecaController {
 		return "biblioteca/formAluno";
 	}
 	
-	@PostMapping("/adicionarAluno")
+	@PostMapping("/adicionarAluno") //Post e Get do formAluno.html
 	public String submetido(Aluno aluno) {
 
 		System.out.println(aluno);
@@ -31,24 +31,8 @@ public class BibliotecaController {
 
 	@GetMapping("/success")
 	public String successPage() {
-		return "biblioteca/aluno-adicionado";
+		return "biblioteca/alunoAdicionado";
 	}
 	
-	@PostMapping("/alunoLogin")
-	public String login(Aluno aluno, Long Long) {
-
-		System.out.println(aluno);
-		boolean verificacao = ar.existsById(Long);
-		
-		if(verificacao == true) {
-			return "redirect:/alunoConectado";
-		}
-
-		return "biblioteca/formAluno";
-	}
-
-	@GetMapping("/alunoConectado")
-	public String loginAceito() {
-		return "biblioteca/alunoLogin";
-	}
+	
 }
