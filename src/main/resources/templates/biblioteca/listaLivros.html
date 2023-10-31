@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Biblioteca</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+	<div th:replace="~{menu :: menu}"></div>
+
+	<div class="container">
+		<h1>Lista de Alunos</h1>
+
+		<table>
+			
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Título</th>
+					<th>Autor</th>
+					<th>Editora</th>
+					<th>Ano de Publicação</th>
+					<th>Edição</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="l : ${livros}"> <!--Isso representa uma repetição "for" que vai repetir a quantidade de objetos que eu tiver na minha lista chamada de alunos--> 
+					<td th:text="${l.id}">1</td> <!-- O valor dos elementos serão substituidos pelo valor que está no banco de dados -->
+					<td th:text="${l.titulo}">>Stephany</td>
+					<td th:text="${l.autor}">>20191204010047</td>
+					<td th:text="${l.editora}">>017.222.104-86</td>
+					<td th:text="${l.anoPublicado}">>21/07/2004</td>
+					<td th:text="${l.edicao}">>Jardim de Angicos</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+</body>
+
+</html>
