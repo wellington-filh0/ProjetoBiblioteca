@@ -1,10 +1,12 @@
 package ifrn.biblioteca.biblioteca4.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import ifrn.biblioteca.biblioteca4.models.Aluno;
 import ifrn.biblioteca.biblioteca4.models.Livro;
@@ -18,9 +20,10 @@ public class BibliotecaController {
 	private AlunoRepository ar;
 	@Autowired
 	private LivroRepository lr;
+	
 	//ADICIONANDO ALUNO
 
-	@RequestMapping("/biblioteca/formAluno")
+	@GetMapping("/biblioteca/formAluno")
 	public String formAluno() {
 		return "biblioteca/formAluno";
 	}
@@ -41,7 +44,7 @@ public class BibliotecaController {
 	
 	//ADICIONANDO LIVRO
 	
-	@RequestMapping("/biblioteca/formLivro")
+	@GetMapping("/biblioteca/formLivro")
 	public String formLivro() {
 		return "biblioteca/formLivro";
 	}
@@ -59,6 +62,30 @@ public class BibliotecaController {
 	public String successLivro() {
 		return "biblioteca/livroAdicionado";
 	}
+	
+	//LISTANDO ALUNOS
+	
+	@GetMapping("/biblioteca/listaAlunos")
+	public ModelAndView listarAluno() {
+		
+		List<Aluno> alunos = ar.findAll();
+		ModelAndView mv = new ModelAndView("biblioteca/listaAlunos");
+		mv.addObject("alunos", alunos);
+		return mv;
+		
+	}
+	
+	//LISTANDO LIVROS
+	
+		@GetMapping("/biblioteca/listaLivros")
+		public ModelAndView listarLivro() {
+			
+			List<Livro> livros = lr.findAll();
+			ModelAndView mv = new ModelAndView("biblioteca/listaLivros");
+			mv.addObject("livros", livros);
+			return mv;
+			
+		}
 	
 	
 }
