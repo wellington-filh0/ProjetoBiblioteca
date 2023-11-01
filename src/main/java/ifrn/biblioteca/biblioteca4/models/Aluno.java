@@ -11,7 +11,7 @@ public class Aluno {
 	@Id // Para o Spring Data saber que esse é o id da tabela
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // Toda tabela no banco de dados precisa de um id
-	
+
 	private String nome;
 	private String matricula;
 	private String cpf;
