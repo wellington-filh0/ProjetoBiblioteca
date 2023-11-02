@@ -153,23 +153,27 @@ public class BibliotecaController {
 	// FINALIZAR EMPÉSTIMO
 	// COMCERTARRRR 
 
-	@GetMapping("/biblioteca/finalizarEmprestimo/{idEmprestimo}")
+	@GetMapping("/biblioteca/finalizarEmprestimo")
 	public String finalizarEmprestimo() {
 		return "biblioteca/finalizarEmprestimo";
 	}
 
-	@PostMapping("/biblioteca/finalizarEmprestimo/{idEmprestimo}")
-	public String finalizarEmprestimo(@PathVariable Long idEmprestimo) {
-		Optional<Emprestimo> emprestimoOpt = er.findById(idEmprestimo);
+	@PostMapping("/biblioteca/finalizarEmprestimo/{id}")
+	public String finalizarEmprestimo(Long id) {
+		Optional<Emprestimo> emprestimoOpt = er.findById(id);
 
-		if (emprestimoOpt.isPresent()) {
+		if(emprestimoOpt.isPresent()) {
 			Emprestimo emprestimo = emprestimoOpt.get();
 			emprestimo.setDataDevolucao(LocalDate.now());
 
+			System.out.println("AGORA FOI: " + emprestimo.getDataEmprestimo());
 			er.save(emprestimo);
+		}else {
+			System.out.println("AGORA NÃO");
+			return "redirect:/biblioteca/listaLivros";
 		}
 
-		return "/biblioteca/listaLivros";
+		return "redirect:/biblioteca/listaLivros";
 	}
 
 }

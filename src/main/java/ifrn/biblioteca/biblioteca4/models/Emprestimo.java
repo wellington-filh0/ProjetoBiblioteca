@@ -8,8 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
-	@Entity // Informando para criar uma tabela com os atributos dessa classe
-	public class Emprestimo {
+@Entity // Informando para criar uma tabela com os atributos dessa classe
+public class Emprestimo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
