@@ -155,7 +155,7 @@ public class BibliotecaController {
 
 			er.save(emprestimo);
 			System.out.println("EMPRÉSTIMO FINALIZADO");
-			return "biblioteca/EmprestimoFeito";
+			return "redirect:/biblioteca/listaEmprestimo";
 		} else {
 			System.out.println("EMPRÉSTIMO CANCELADO");
 			return "biblioteca/falhaLivroAlunoNaoEncontrado";
@@ -185,7 +185,65 @@ public class BibliotecaController {
 			return "redirect:/biblioteca/listaLivros";
 		}
 
-		return "redirect:/biblioteca/listaLivros";
+		return "redirect:/biblioteca/listaEmprestimo";
+	}
+	
+	//APAGAR ALUNO
+	
+	@GetMapping("/biblioteca/removerAluno/{id}")
+	public String apagarAluno(@PathVariable Long id) {
+		Optional<Aluno> opt = ar.findById(id);
+		
+		if(!opt.isEmpty()) {
+			Aluno aluno = opt.get();
+			
+			List<Emprestimo> emprestimos = er.findByAluno(aluno);
+			
+			er.deleteAll(emprestimos);
+			
+			ar.delete(aluno);
+		}
+		
+		return "redirect:/biblioteca/listaAlunos";
 	}
 
+	//APAGAR LIVRO
+	
+		@GetMapping("/biblioteca/removerLivro/{id}")
+		public String apagarLivro(@PathVariable Long id) {
+			Optional<Livro> opt = lr.findById(id);
+			
+			
+			if(!opt.isEmpty()) {
+				Livro livro = opt.get();
+				lr.delete(livro);
+				
+				List<Emprestimo> emprestimos = er.findByLivro(livro);
+				er.deleteAll(emprestimos);				
+			}
+			
+			return "redirect:/biblioteca/listaLivros";
+		}
+		
+		//APAGAR EMPRESTIMO
+		
+			@GetMapping("/biblioteca/removerEmprestimo/{id}")
+			public String apagarEmprestimo(@PathVariable Long id) {
+				Optional<Emprestimo> opt = er.findById(id);
+				
+				
+				if(!opt.isEmpty()) {
+					Emprestimo emprestimo = opt.get();
+					er.delete(emprestimo);
+					
+//					List<Emprestimo> emprestimos = er.findByLivro(livro);
+//					er.deleteAll(emprestimos);
+					
+					
+				}
+				
+				return "redirect:/biblioteca/listaEmprestimo";
+			}
+		
+		
 }

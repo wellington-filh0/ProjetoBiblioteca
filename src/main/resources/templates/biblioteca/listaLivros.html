@@ -6,6 +6,7 @@
 	<title>Biblioteca</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -24,6 +25,7 @@
 					<th>Editora</th>
 					<th>Ano de Publicação</th>
 					<th>Edição</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +36,7 @@
 					<td th:text="${l.editora}">017.222.104-86</td>
 					<td th:text="${l.anoPublicado}">21/07/2004</td>
 					<td th:text="${l.edicao}">Jardim de Angicos</td>
+					<td><a th:href="@{/biblioteca/removerLivro/{id}(id=${l.id})}"> <i class="material-icons">delete</i></a></td>
 				</tr>
 			</tbody>
 			

@@ -6,6 +6,7 @@
 	<title>Biblioteca</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -24,16 +25,18 @@
 					<th>Cpf</th>
 					<th>Nascimento</th>
 					<th>Endereço</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="a : ${alunos}"> <!--Isso representa uma repetição "for" que vai repetir a quantidade de objetos que eu tiver na minha lista chamada de alunos--> 
 					<td th:text="${a.id}">1</td> <!-- O valor dos elementos serão substituidos pelo valor que está no banco de dados -->
-					<td th:text="${a.nome}">>Stephany</td>
-					<td th:text="${a.matricula}">>20191204010047</td>
-					<td th:text="${a.cpf}">>017.222.104-86</td>
-					<td th:text="${a.nascimento}">>21/07/2004</td>
-					<td th:text="${a.endereco}">>Jardim de Angicos</td>
+					<td th:text="${a.nome}">Stephany</td>
+					<td th:text="${a.matricula}">20191204010047</td>
+					<td th:text="${a.cpf}">017.222.104-86</td>
+					<td th:text="${a.nascimento}">21/07/2004</td>
+					<td th:text="${a.endereco}">Jardim de Angicos</td>
+					<td><a th:href="@{/biblioteca/removerAluno/{id}(id=${a.id})}"> <i class="material-icons">delete</i></a></td>
 				</tr>
 			</tbody>
 			

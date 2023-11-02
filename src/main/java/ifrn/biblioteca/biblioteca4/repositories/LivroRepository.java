@@ -8,4 +8,5 @@ public interface LivroRepository extends JpaRepository<Livro, Long>{
 
 	//Esse repository tem a capacidade de salvar, buscar... Livros no meu banco de dados
 	//Isso porque ele extende o repositório JpaRepository que tem todas essas funcionalidades
+	
 }
