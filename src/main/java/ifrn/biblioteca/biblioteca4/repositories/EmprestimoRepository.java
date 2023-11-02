@@ -22,4 +22,5 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
 	List<Emprestimo> findByAlunoAndDataDevolucaoIsNull(Aluno aluno); //Retorna uma lista de empréstimos ativos associados a um aluno específico.
 
 	List<Emprestimo> findByLivroAndDataDevolucaoIsNull(Livro livro); //Retorna uma lista de empréstimos ativos associados a um livro específico.
+	
 }
