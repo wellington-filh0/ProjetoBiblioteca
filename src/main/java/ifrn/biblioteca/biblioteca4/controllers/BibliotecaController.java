@@ -72,6 +72,18 @@ public class BibliotecaController {
 		return mv;
 
 	}
+	
+	// LISTANDO EMPRÉSTIMOS
+
+		@GetMapping("/biblioteca/listaEmprestimo")
+		public ModelAndView listarEmprestimo() {
+
+			List<Emprestimo> emprestimos = er.findAll();
+			ModelAndView mv = new ModelAndView("biblioteca/listaEmprestimo");
+			mv.addObject("emprestimos", emprestimos);
+			return mv;
+
+		}
 
 	// DETALHANDO LIVRO
 	// TIRAR DÚVIDAAAAA!!!
