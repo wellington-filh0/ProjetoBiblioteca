@@ -121,16 +121,16 @@ public class BibliotecaController {
 
 			// VERIFICAR SE O ALUNO JÁ POSSUI 3 LIVROS EMPRESTADOS
 
-			if (er.findByAluno(aluno).size() >= 2) {
+			if (er.findByAluno(aluno).size() > 2) {
 				System.out.println("O aluno atingiu o limite de empréstimos!");
-				return "biblioteca/listaAlunos";
+				return "biblioteca/falhaAlunoLimite";
 			}
 
 			// VERIFICAR SE O LIVRO JÁ ESTÁ EMPRESTADO
 
 			if (!er.findByLivro(livro).isEmpty()) {
 				System.out.println("Este livro já se encontra emprestado!");
-				return "biblioteca/listaAlunos";				
+				return "biblioteca/falhaLivroEmprestado";				
 			}
 			
 			// CRIAR O EMPRÉSTIMO
@@ -143,10 +143,10 @@ public class BibliotecaController {
 
 			er.save(emprestimo);
 			System.out.println("EMPRÉSTIMO FINALIZADO");
-			return "redirect:/biblioteca/listaLivros";
+			return "biblioteca/EmprestimoFeito";
 		} else {
 			System.out.println("EMPRÉSTIMO CANCELADO");
-			return "redirect:/biblioteca/listaLivros";
+			return "biblioteca/falhaLivroAlunoNaoEncontrado";
 		}
 	}
 
