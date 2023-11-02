@@ -8,4 +8,5 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 
 	//Esse repository tem a capacidade de salvar, buscar... Alunos no meu banco de dados
 	//Isso porque ele extende o repositório JpaRepository que tem todas essas funcionalidades
+	
 }
