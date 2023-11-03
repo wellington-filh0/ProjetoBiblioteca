@@ -74,12 +74,12 @@ public class BibliotecaController {
 	}
 
 	// LISTANDO EMPRÉSTIMOS
-
-	@GetMapping("/biblioteca/listaEmprestimo")
+	@GetMapping("/biblioteca/finalizarEmprestimo")
 	public ModelAndView listarEmprestimo() {
 
 		List<Emprestimo> emprestimos = er.findAll();
-		ModelAndView mv = new ModelAndView("biblioteca/listaEmprestimo");
+		ModelAndView mv = new ModelAndView("biblioteca/finalizarEmprestimo");
+
 		mv.addObject("emprestimos", emprestimos);
 		return mv;
 
@@ -155,7 +155,7 @@ public class BibliotecaController {
 
 			er.save(emprestimo);
 			System.out.println("EMPRÉSTIMO FINALIZADO");
-			return "redirect:/biblioteca/listaEmprestimo";
+			return "redirect:/biblioteca/finalizarEmprestimo";
 		} else {
 			System.out.println("EMPRÉSTIMO CANCELADO");
 			return "biblioteca/falhaLivroAlunoNaoEncontrado";
@@ -163,13 +163,6 @@ public class BibliotecaController {
 	}
 
 	// FINALIZAR EMPÉSTIMO
-	// COMCERTARRRR
-
-	@GetMapping("/biblioteca/finalizarEmprestimo")
-	public String finalizarEmprestimo() {
-		return "biblioteca/finalizarEmprestimo";
-	}
-
 	@PostMapping("/biblioteca/finalizarEmprestimo/{id}")
 	public String finalizarEmprestimo(Long id) {
 		Optional<Emprestimo> emprestimoOpt = er.findById(id);
@@ -219,6 +212,7 @@ public class BibliotecaController {
 
 			List<Emprestimo> emprestimos = er.findByLivro(livro);
 			er.deleteAll(emprestimos);
+
 		}
 
 		return "redirect:/biblioteca/listaLivros";
@@ -236,7 +230,7 @@ public class BibliotecaController {
 
 		}
 
-		return "redirect:/biblioteca/listaEmprestimo";
+		return "redirect:/biblioteca/finalizarEmprestimo";
 	}
 	
 	//SELECIONAR LIVRO
@@ -257,6 +251,7 @@ public class BibliotecaController {
 		md.addObject("livro", livro);
 		
 		return md;
+
 	}
 
 }
