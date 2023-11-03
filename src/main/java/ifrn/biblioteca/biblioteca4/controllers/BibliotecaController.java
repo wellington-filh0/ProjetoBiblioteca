@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ifrn.biblioteca.biblioteca4.models.Aluno;
 import ifrn.biblioteca.biblioteca4.models.Emprestimo;
@@ -38,7 +39,7 @@ public class BibliotecaController {
 	}
 
 	@PostMapping("/adicionarLivro")
-	public String adicionarLivro(@Valid Livro livro, BindingResult result) {
+	public String adicionarLivro(@Valid Livro livro, BindingResult result, RedirectAttributes attributes) {
 
 		if(result.hasErrors()) {
 			return formLivro(livro);
@@ -46,12 +47,7 @@ public class BibliotecaController {
 		
 		System.out.println(livro);
 		lr.save(livro);
-
-		return "redirect:/successLivro";
-	}
-
-	@GetMapping("/successLivro")
-	public String successLivro() {
+		attributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
 		return "redirect:/biblioteca/listaLivros";
 	}
 
@@ -119,7 +115,7 @@ public class BibliotecaController {
 	}
 
 	@PostMapping("/biblioteca/adicionarAluno")
-	public String adicionarAluno(Long idLivro, @Valid Aluno aluno, BindingResult result) {
+	public String adicionarAluno(Long idLivro, @Valid Aluno aluno, BindingResult result, RedirectAttributes attributes) {
 
 		if(result.hasErrors()) {
 			return adicionarAluno(aluno);
@@ -127,6 +123,7 @@ public class BibliotecaController {
 		
 		System.out.println(aluno);
 		ar.save(aluno);
+		attributes.addFlashAttribute("mensagem", "Aluno salvo com sucesso!");
 		return "redirect:/biblioteca/listaAlunos";
 	}
 
@@ -138,7 +135,7 @@ public class BibliotecaController {
 	}
 
 	@PostMapping("/biblioteca/emprestimo")
-	public String adicionarEmprestimo(Long idLivro, Long idAluno) {
+	public String adicionarEmprestimo(Long idLivro, Long idAluno, RedirectAttributes attributes) {
 		Optional<Livro> livroOpt = lr.findById(idLivro);
 		Optional<Aluno> alunoOpt = ar.findById(idAluno);
 
@@ -150,14 +147,16 @@ public class BibliotecaController {
 
 			if (er.findByAluno(aluno).size() > 2) {
 				System.out.println("O aluno atingiu o limite de empréstimos!");
-				return "biblioteca/falhaAlunoLimite";
+				attributes.addFlashAttribute("mensagem", "O aluno atingiu o limite de empréstimos!");
+				return "redirect:/biblioteca/finalizarEmprestimo";
 			}
 
 			// VERIFICAR SE O LIVRO JÁ ESTÁ EMPRESTADO
 
 			if (!er.findByLivro(livro).isEmpty()) {
 				System.out.println("Este livro já se encontra emprestado!");
-				return "biblioteca/falhaLivroEmprestado";
+				attributes.addFlashAttribute("mensagem", "Este livro já se encontra emprestado!");
+				return "redirect:/biblioteca/finalizarEmprestimo";
 			}
 
 			// CRIAR O EMPRÉSTIMO
@@ -170,26 +169,29 @@ public class BibliotecaController {
 
 			er.save(emprestimo);
 			System.out.println("EMPRÉSTIMO FINALIZADO");
+			attributes.addFlashAttribute("mensagem", "Empréstimo realizado com sucesso!");
 			return "redirect:/biblioteca/finalizarEmprestimo";
 		} else {
+			attributes.addFlashAttribute("mensagem", "O aluno ou livro não se encontra cadastrado no sistema!");
 			System.out.println("EMPRÉSTIMO CANCELADO");
-			return "biblioteca/falhaLivroAlunoNaoEncontrado";
+			return "redirect:/biblioteca/finalizarEmprestimo";
 		}
 	}
 
 	// FINALIZAR EMPÉSTIMO
 	@PostMapping("/biblioteca/finalizarEmprestimo/{id}")
-	public String finalizarEmprestimo(Long id) {
+	public String finalizarEmprestimo(Long id, RedirectAttributes attributes) {
 		Optional<Emprestimo> emprestimoOpt = er.findById(id);
 
 		if (emprestimoOpt.isPresent()) {
 			Emprestimo emprestimo = emprestimoOpt.get();
-			emprestimo.setDataDevolucao(LocalDate.now());
 
-			System.out.println("AGORA FOI: " + emprestimo.getDataEmprestimo());
-			er.save(emprestimo);
+			System.out.println("AGORA FOI: ");
+			er.delete(emprestimo);
+			attributes.addFlashAttribute("mensagem", "O empréstimo foi finalizado!");
 		} else {
 			System.out.println("AGORA NÃO");
+			attributes.addFlashAttribute("mensagem", "O ID do empréstimo informado não existe!");
 			return "redirect:/biblioteca/finalizarEmprestimo";
 		}
 
@@ -199,17 +201,19 @@ public class BibliotecaController {
 	// APAGAR ALUNO
 
 	@GetMapping("/biblioteca/removerAluno/{id}")
-	public String apagarAluno(@PathVariable Long id) {
+	public String apagarAluno(@PathVariable Long id, RedirectAttributes attributes) {
 		Optional<Aluno> opt = ar.findById(id);
 		Aluno aluno = opt.get();
 		
 		if(!er.findByAluno(aluno).isEmpty()) {
 			System.out.println("Possui empréstimos");
-			return "redirect:/biblioteca/finalizarEmprestimo";
+			attributes.addFlashAttribute("mensagem", "O aluno possui empréstimos ativos!");
+			return "redirect:/biblioteca/listaAlunos";
 		}
 
 		if (!opt.isEmpty()) {
 			ar.delete(aluno);
+			attributes.addFlashAttribute("mensagem", "Aluno removido com sucesso!");
 		}
 
 		return "redirect:/biblioteca/listaAlunos";
@@ -218,36 +222,22 @@ public class BibliotecaController {
 	// APAGAR LIVRO
 
 	@GetMapping("/biblioteca/removerLivro/{id}")
-	public String apagarLivro(@PathVariable Long id) {
+	public String apagarLivro(@PathVariable Long id, RedirectAttributes attributes) {
 		Optional<Livro> opt = lr.findById(id);
 		Livro livro = opt.get();
 		
 		if(!er.findByLivro(livro).isEmpty()) {
 			System.out.println("Possui empréstimos");
-			return "redirect:/biblioteca/finalizarEmprestimo";
+			attributes.addFlashAttribute("mensagem", "O livro se encontra emprestado no momento!");
+			return "redirect:/biblioteca/listaLivros";
 		}
 
 		if (!opt.isEmpty()) {
 			lr.delete(livro);
-
+			attributes.addFlashAttribute("mensagem", "Livro removido com sucesso!");
 		}
 
 		return "redirect:/biblioteca/listaLivros";
-	}
-
-	// APAGAR EMPRESTIMO
-
-	@GetMapping("/biblioteca/removerEmprestimo/{id}")
-	public String apagarEmprestimo(@PathVariable Long id) {
-		Optional<Emprestimo> opt = er.findById(id);
-
-		if (!opt.isEmpty()) {
-			Emprestimo emprestimo = opt.get();
-			er.delete(emprestimo);
-
-		}
-
-		return "redirect:/biblioteca/finalizarEmprestimo";
 	}
 	
 	//SELECIONAR LIVRO

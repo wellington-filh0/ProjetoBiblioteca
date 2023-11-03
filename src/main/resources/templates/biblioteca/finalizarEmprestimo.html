@@ -6,7 +6,6 @@
 	<title>Biblioteca</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -14,6 +13,8 @@
 
 	<div class="container">
 		<h1>Finalizar Empréstimo</h1>
+		
+		<p th:if="${mensagem}" th:text="${mensagem}"></p>
 
 		<form action="/biblioteca/finalizarEmprestimo/{id}" method="post">
 
@@ -53,7 +54,6 @@
 					<td th:text="${e.livro}">20191204010047</td>
 					<td th:text="${e.dataEmprestimo}">017.222.104-86</td>
 					<td th:text="${e.dataDevolucao}">21/07/2004</td>
-					<td><a th:href="@{/biblioteca/removerEmprestimo/{id}(id=${e.id})}"> <i class="material-icons">delete</i></a></td>
 				</tr>
 			</tbody>
 
