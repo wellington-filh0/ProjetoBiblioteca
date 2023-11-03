@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity // Informando para criar uma tabela com os atributos dessa classe
 public class Aluno {
@@ -12,12 +13,18 @@ public class Aluno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; // Toda tabela no banco de dados precisa de um id
 
+	@NotBlank  //Informando que o campo não pode estar em branco
 	private String nome;
+	@NotBlank
 	private String matricula;
+	@NotBlank
 	private String cpf;
+	@NotBlank
 	private String nascimento;
+	@NotBlank
 	private String endereco;
 
+	
 	public Long getId() {
 		return id;
 	}

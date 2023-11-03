@@ -14,25 +14,30 @@
 	<div class="container">
 		<h1>Adicionar Aluno</h1>
 
-		<form action="/biblioteca/adicionarAluno" method="post">
+		<form action="/biblioteca/adicionarAluno" method="post" th:object="${aluno}"> <!--Essa ultima anotação é usada para simplificar os input. Não sendo necessario name e th.value, apenas o th:field-->
 
 			<div>
-				<input type="hidden" name="id" th:value="${aluno.id}" readonly="readonly">
+				<input type="hidden" th:field="*{id}" readonly="readonly">
 			</div>
 			<div>
-				<label>Nome</label> <input type="text" name="nome" th:value="${aluno.nome}">
+				<label>Nome</label> <input type="text" th:field="*{nome}">
+				<p th:errors="*{nome}"></p>
 			</div>
 			<div>
-				<label>Matrícula</label> <input type="text" name="matricula" th:value="${aluno.matricula}">
+				<label>Matrícula</label> <input type="text" th:field="*{matricula}">
+				<p th:errors="*{matricula}"></p>
 			</div>
 			<div>
-				<label>Cpf</label> <input type="text" name="cpf" th:value="${aluno.cpf}">
+				<label>Cpf</label> <input type="text" th:field="*{cpf}">
+				<p th:errors="*{cpf}"></p>
 			</div>
 			<div>
-				<label>Nascimento</label> <input type="text" name="nascimento" th:value="${aluno.nascimento}">
+				<label>Nascimento</label> <input type="text" th:field="*{nascimento}">
+				<p th:errors="*{nascimento}"></p>
 			</div>
 			<div>
-				<label>Endereço</label> <input type="text" name="endereco" th:value="${aluno.endereco}">
+				<label>Endereço</label> <input type="text" th:field="*{endereco}">
+				<p th:errors="*{endereco}"></p>
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
