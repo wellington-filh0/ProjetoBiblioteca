@@ -106,13 +106,18 @@ public class BibliotecaController {
 	}
 
 	// ADICIONANDO ALUNO
+	
+	@GetMapping("/biblioteca/adicionarAluno")
+	public String adicionarAluno() {
+		return "biblioteca/formAluno";
+	}
 
-	@PostMapping("/biblioteca/Livro/{idLivro}")
+	@PostMapping("/biblioteca/adicionarAluno")
 	public String adicionarAluno(Long idLivro, Aluno aluno) {
 
 		System.out.println(aluno);
 		ar.save(aluno);
-		return "redirect:/biblioteca/Livro/{idLivro}";
+		return "redirect:/biblioteca/listaAlunos";
 	}
 
 	// ADICIONAR UM EMPRESTIMO
@@ -186,14 +191,14 @@ public class BibliotecaController {
 	@GetMapping("/biblioteca/removerAluno/{id}")
 	public String apagarAluno(@PathVariable Long id) {
 		Optional<Aluno> opt = ar.findById(id);
+		Aluno aluno = opt.get();
+		
+		if(!er.findByAluno(aluno).isEmpty()) {
+			System.out.println("Possui empréstimos");
+			return "redirect:/biblioteca/finalizarEmprestimo";
+		}
 
 		if (!opt.isEmpty()) {
-			Aluno aluno = opt.get();
-
-			List<Emprestimo> emprestimos = er.findByAluno(aluno);
-
-			er.deleteAll(emprestimos);
-
 			ar.delete(aluno);
 		}
 
@@ -205,13 +210,15 @@ public class BibliotecaController {
 	@GetMapping("/biblioteca/removerLivro/{id}")
 	public String apagarLivro(@PathVariable Long id) {
 		Optional<Livro> opt = lr.findById(id);
+		Livro livro = opt.get();
+		
+		if(!er.findByLivro(livro).isEmpty()) {
+			System.out.println("Possui empréstimos");
+			return "redirect:/biblioteca/finalizarEmprestimo";
+		}
 
 		if (!opt.isEmpty()) {
-			Livro livro = opt.get();
 			lr.delete(livro);
-
-			List<Emprestimo> emprestimos = er.findByLivro(livro);
-			er.deleteAll(emprestimos);
 
 		}
 
@@ -250,27 +257,6 @@ public class BibliotecaController {
 		md.setViewName("biblioteca/formLivro");
 		md.addObject("livro", livro);
 		
-		return md;
-
-	}
-
-	// SELECIONAR LIVRO
-
-	@GetMapping("/biblioteca/selecionarLivro/{id}")
-	public ModelAndView selecionarLivro(@PathVariable Long id) {
-		ModelAndView md = new ModelAndView();
-		Optional<Livro> opt = lr.findById(id);
-
-		if (opt.isEmpty()) {
-			md.setViewName("redirect:/biblioteca/listaLivros");
-			return md;
-		}
-
-		Livro livro = opt.get();
-
-		md.setViewName("biblioteca/formLivro");
-		md.addObject("livro", livro);
-
 		return md;
 
 	}
