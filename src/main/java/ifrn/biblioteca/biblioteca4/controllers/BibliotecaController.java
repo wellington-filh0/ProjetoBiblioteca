@@ -163,7 +163,6 @@ public class BibliotecaController {
 	}
 
 	// FINALIZAR EMPÉSTIMO
-	// COMCERTARRRR
 
 	@PostMapping("/biblioteca/finalizarEmprestimo/{id}")
 	public String finalizarEmprestimo(Long id) {
