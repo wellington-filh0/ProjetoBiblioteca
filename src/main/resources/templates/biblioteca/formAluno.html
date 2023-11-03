@@ -17,19 +17,22 @@
 		<form action="/biblioteca/adicionarAluno" method="post">
 
 			<div>
-				<label>Nome</label> <input type="text" name="nome">
+				<input type="hidden" name="id" th:value="${aluno.id}" readonly="readonly">
 			</div>
 			<div>
-				<label>Matrícula</label> <input type="text" name="matricula">
+				<label>Nome</label> <input type="text" name="nome" th:value="${aluno.nome}">
 			</div>
 			<div>
-				<label>Cpf</label> <input type="text" name="cpf">
+				<label>Matrícula</label> <input type="text" name="matricula" th:value="${aluno.matricula}">
 			</div>
 			<div>
-				<label>Nascimento</label> <input type="text" name="nascimento">
+				<label>Cpf</label> <input type="text" name="cpf" th:value="${aluno.cpf}">
 			</div>
 			<div>
-				<label>Endereço</label> <input type="text" name="endereco">
+				<label>Nascimento</label> <input type="text" name="nascimento" th:value="${aluno.nascimento}">
+			</div>
+			<div>
+				<label>Endereço</label> <input type="text" name="endereco" th:value="${aluno.endereco}">
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
