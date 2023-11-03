@@ -108,7 +108,7 @@ public class BibliotecaController {
 	// ADICIONANDO ALUNO
 	
 	@GetMapping("/biblioteca/adicionarAluno")
-	public String adicionarAluno() {
+	public String adicionarAluno(Aluno aluno) {
 		return "biblioteca/formAluno";
 	}
 
@@ -180,10 +180,10 @@ public class BibliotecaController {
 			er.save(emprestimo);
 		} else {
 			System.out.println("AGORA NÃO");
-			return "redirect:/biblioteca/listaLivros";
+			return "redirect:/biblioteca/finalizarEmprestimo";
 		}
 
-		return "redirect:/biblioteca/listaEmprestimo";
+		return "redirect:/biblioteca/finalizarEmprestimo";
 	}
 
 	// APAGAR ALUNO
@@ -260,5 +260,25 @@ public class BibliotecaController {
 		return md;
 
 	}
+	
+	//SELECIONAR ALUNO
+	
+		@GetMapping("/biblioteca/selecionarAluno/{id}")
+		public ModelAndView selecionarAluno(@PathVariable Long id) {
+			ModelAndView md = new ModelAndView();
+			Optional<Aluno> opt = ar.findById(id);
+			
+			if(opt.isEmpty()) {			
+				md.setViewName("redirect:/biblioteca/listaAlunos");
+				return md;			
+			}
+			
+			Aluno aluno = opt.get();			
+			md.setViewName("biblioteca/formAluno");
+			md.addObject("aluno", aluno);
+			
+			return md;
+
+		}
 
 }
