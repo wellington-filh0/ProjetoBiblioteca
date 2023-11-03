@@ -16,21 +16,23 @@
 
 		<form action="/adicionarLivro" method="post">
 
-
 			<div>
-				<label>Título</label> <input type="text" name="titulo">
+				<input type="hidden" name="id" th:value="${livro.id}" readonly="readonly">
 			</div>
 			<div>
-				<label>Autor</label> <input type="text" name="autor">
+				<label>Título</label> <input type="text" name="titulo" th:value="${livro.titulo}">
 			</div>
 			<div>
-				<label>Editora</label> <input type="text" name="editora">
+				<label>Autor</label> <input type="text" name="autor" th:value="${livro.autor}">
 			</div>
 			<div>
-				<label>Ano de Publicação</label> <input type="text" name="anoPublicado">
+				<label>Editora</label> <input type="text" name="editora" th:value="${livro.editora}">
 			</div>
 			<div>
-				<label>Edição</label> <input type="text" name="edicao">
+				<label>Ano de Publicação</label> <input type="text" name="anoPublicado" th:value="${livro.anoPublicado}">
+			</div>
+			<div>
+				<label>Edição</label> <input type="text" name="edicao" th:value="${livro.edicao}">
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>

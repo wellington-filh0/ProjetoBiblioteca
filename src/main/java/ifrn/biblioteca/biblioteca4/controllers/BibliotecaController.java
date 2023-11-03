@@ -31,7 +31,7 @@ public class BibliotecaController {
 	// ADICIONANDO LIVRO
 
 	@GetMapping("/biblioteca/formLivro")
-	public String formLivro() {
+	public String formLivro(Livro livro) {
 		return "biblioteca/formLivro";
 	}
 
@@ -74,12 +74,12 @@ public class BibliotecaController {
 	}
 
 	// LISTANDO EMPRÉSTIMOS
-
 	@GetMapping("/biblioteca/finalizarEmprestimo")
 	public ModelAndView listarEmprestimo() {
 
 		List<Emprestimo> emprestimos = er.findAll();
 		ModelAndView mv = new ModelAndView("biblioteca/finalizarEmprestimo");
+
 		mv.addObject("emprestimos", emprestimos);
 		return mv;
 
@@ -163,7 +163,6 @@ public class BibliotecaController {
 	}
 
 	// FINALIZAR EMPÉSTIMO
-
 	@PostMapping("/biblioteca/finalizarEmprestimo/{id}")
 	public String finalizarEmprestimo(Long id) {
 		Optional<Emprestimo> emprestimoOpt = er.findById(id);
@@ -213,6 +212,7 @@ public class BibliotecaController {
 
 			List<Emprestimo> emprestimos = er.findByLivro(livro);
 			er.deleteAll(emprestimos);
+
 		}
 
 		return "redirect:/biblioteca/listaLivros";
@@ -228,12 +228,30 @@ public class BibliotecaController {
 			Emprestimo emprestimo = opt.get();
 			er.delete(emprestimo);
 
-//						List<Emprestimo> emprestimos = er.findByLivro(livro);
-//						er.deleteAll(emprestimos);
-
 		}
 
 		return "redirect:/biblioteca/finalizarEmprestimo";
+	}
+	
+	//SELECIONAR LIVRO
+	
+	@GetMapping("/biblioteca/selecionarLivro/{id}")
+	public ModelAndView selecionarLivro(@PathVariable Long id) {
+		ModelAndView md = new ModelAndView();
+		Optional<Livro> opt = lr.findById(id);
+		
+		if(opt.isEmpty()) {			
+			md.setViewName("redirect:/biblioteca/listaLivros");
+			return md;			
+		}
+		
+		Livro livro = opt.get();
+		
+		md.setViewName("biblioteca/formLivro");
+		md.addObject("livro", livro);
+		
+		return md;
+
 	}
 
 }
