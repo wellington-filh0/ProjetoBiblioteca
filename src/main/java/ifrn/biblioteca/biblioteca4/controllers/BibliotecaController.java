@@ -232,6 +232,27 @@ public class BibliotecaController {
 
 		return "redirect:/biblioteca/finalizarEmprestimo";
 	}
+	
+	//SELECIONAR LIVRO
+	
+	@GetMapping("/biblioteca/selecionarLivro/{id}")
+	public ModelAndView selecionarLivro(@PathVariable Long id) {
+		ModelAndView md = new ModelAndView();
+		Optional<Livro> opt = lr.findById(id);
+		
+		if(opt.isEmpty()) {			
+			md.setViewName("redirect:/biblioteca/listaLivros");
+			return md;			
+		}
+		
+		Livro livro = opt.get();
+		
+		md.setViewName("biblioteca/formLivro");
+		md.addObject("livro", livro);
+		
+		return md;
+
+	}
 
 	// SELECIONAR LIVRO
 
