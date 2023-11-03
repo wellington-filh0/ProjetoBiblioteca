@@ -106,13 +106,18 @@ public class BibliotecaController {
 	}
 
 	// ADICIONANDO ALUNO
+	
+	@GetMapping("/biblioteca/adicionarAluno")
+	public String adcionarAluno() {
+		return "biblioteca/formAluno";
+	}
 
-	@PostMapping("/biblioteca/Livro/{idLivro}")
-	public String adicionarAluno(Long idLivro, Aluno aluno) {
+	@PostMapping("/biblioteca/adicionarAluno")
+	public String adicionarAluno(Aluno aluno) {
 
 		System.out.println(aluno);
 		ar.save(aluno);
-		return "redirect:/biblioteca/Livro/{idLivro}";
+		return "redirect:/biblioteca/listaAlunos";
 	}
 
 	// ADICIONAR UM EMPRESTIMO
@@ -179,7 +184,7 @@ public class BibliotecaController {
 			return "redirect:/biblioteca/listaLivros";
 		}
 
-		return "redirect:/biblioteca/listaEmprestimo";
+		return "redirect:/biblioteca/finalizarEmprestimo";
 	}
 
 	// APAGAR ALUNO
@@ -227,9 +232,6 @@ public class BibliotecaController {
 		if (!opt.isEmpty()) {
 			Emprestimo emprestimo = opt.get();
 			er.delete(emprestimo);
-
-//						List<Emprestimo> emprestimos = er.findByLivro(livro);
-//						er.deleteAll(emprestimos);
 
 		}
 

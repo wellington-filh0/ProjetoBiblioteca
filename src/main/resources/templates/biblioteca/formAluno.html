@@ -6,23 +6,30 @@
 	<title>Biblioteca</title>
 	<!-- Compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
 	<div th:replace="~{menu :: menu}"></div>
 
 	<div class="container">
-		<h1>Realizar Empréstimo</h1>
+		<h1>Adicionar Aluno</h1>
 
-		<form action="/biblioteca/emprestimo" method="post">
-
+		<form action="/biblioteca/adicionarAluno" method="post">
 
 			<div>
-				<label>Id do Livro</label> <input type="text" name="idLivro">
+				<label>Nome</label> <input type="text" name="nome">
 			</div>
 			<div>
-				<label>Id do Aluno</label> <input type="text" name="idAluno">
+				<label>Matrícula</label> <input type="text" name="matricula">
+			</div>
+			<div>
+				<label>Cpf</label> <input type="text" name="cpf">
+			</div>
+			<div>
+				<label>Nascimento</label> <input type="text" name="nascimento">
+			</div>
+			<div>
+				<label>Endereço</label> <input type="text" name="endereco">
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
@@ -30,9 +37,7 @@
 			</div>
 
 		</form>
-		
 	</div>
-
 </body>
 
 </html>
