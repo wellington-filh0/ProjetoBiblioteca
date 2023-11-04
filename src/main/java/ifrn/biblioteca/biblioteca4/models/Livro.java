@@ -1,10 +1,13 @@
 package ifrn.biblioteca.biblioteca4.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity // Informando para criar uma tabela com os atributos dessa classe
 public class Livro {
@@ -19,8 +22,8 @@ public class Livro {
 	private String autor;
 	@NotBlank
 	private String editora;
-	@NotBlank
-	private String anoPublicado;
+	@NotNull
+	private LocalDate anoPublicado;
 	@NotBlank
 	private String edicao;
 
@@ -57,11 +60,11 @@ public class Livro {
 		this.editora = editora;
 	}
 
-	public String getAnoPublicado() {
+	public LocalDate getAnoPublicado() {
 		return anoPublicado;
 	}
 
-	public void setAnoPublicado(String anoPublicado) {
+	public void setAnoPublicado(LocalDate anoPublicado) {
 		this.anoPublicado = anoPublicado;
 	}
 

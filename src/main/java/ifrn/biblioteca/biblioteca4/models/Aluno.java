@@ -1,10 +1,13 @@
 package ifrn.biblioteca.biblioteca4.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity // Informando para criar uma tabela com os atributos dessa classe
 public class Aluno {
@@ -19,8 +22,8 @@ public class Aluno {
 	private String matricula;
 	@NotBlank
 	private String cpf;
-	@NotBlank
-	private String nascimento;
+	@NotNull
+	private LocalDate nascimento;
 	@NotBlank
 	private String endereco;
 
@@ -57,11 +60,11 @@ public class Aluno {
 		this.cpf = cpf;
 	}
 
-	public String getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(String nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
 
