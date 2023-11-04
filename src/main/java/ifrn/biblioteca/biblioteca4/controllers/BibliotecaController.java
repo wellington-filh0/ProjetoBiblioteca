@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,6 @@ import ifrn.biblioteca.biblioteca4.models.Livro;
 import ifrn.biblioteca.biblioteca4.repositories.AlunoRepository;
 import ifrn.biblioteca.biblioteca4.repositories.EmprestimoRepository;
 import ifrn.biblioteca.biblioteca4.repositories.LivroRepository;
-import jakarta.validation.Valid;
 
 @Controller
 public class BibliotecaController {
@@ -39,11 +37,7 @@ public class BibliotecaController {
 	}
 
 	@PostMapping("/adicionarLivro")
-	public String adicionarLivro(@Valid Livro livro, BindingResult result, RedirectAttributes attributes) {
-
-		if (result.hasErrors()) {
-			return formLivro(livro);
-		}
+	public String adicionarLivro(Livro livro, RedirectAttributes attributes) {
 
 		System.out.println(livro);
 		lr.save(livro);
@@ -115,12 +109,7 @@ public class BibliotecaController {
 	}
 
 	@PostMapping("/biblioteca/adicionarAluno")
-	public String adicionarAluno(Long idLivro, @Valid Aluno aluno, BindingResult result,
-			RedirectAttributes attributes) {
-
-		if (result.hasErrors()) {
-			return adicionarAluno(aluno);
-		}
+	public String adicionarAluno(Long idLivro,Aluno aluno, RedirectAttributes attributes) {
 
 		System.out.println(aluno);
 		ar.save(aluno);

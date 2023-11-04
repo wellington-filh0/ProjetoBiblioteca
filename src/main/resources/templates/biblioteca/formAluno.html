@@ -20,24 +20,19 @@
 				<input type="hidden" th:field="*{id}" readonly="readonly">
 			</div>
 			<div>
-				<label>Nome</label> <input type="text" th:field="*{nome}">
-				<p th:errors="*{nome}"></p>
+				<label>Nome</label> <input type="text" th:field="*{nome}" required>
 			</div>
 			<div>
-				<label>Matrícula</label> <input type="text" th:field="*{matricula}">
-				<p th:errors="*{matricula}"></p>
+				<label>Matrícula</label> <input type="number" th:field="*{matricula}" required>
 			</div>
 			<div>
-				<label>Cpf</label> <input type="text" th:field="*{cpf}">
-				<p th:errors="*{cpf}"></p>
+				<label>CPF</label> <input type="number" th:field="*{cpf}" required>
 			</div>
 			<div>
-				<label>Nascimento</label> <input type="text" th:field="*{nascimento}">
-				<p th:errors="*{nascimento}"></p>
+				<label>Nascimento</label> <input type="text" th:field="*{nascimento}" required>
 			</div>
 			<div>
-				<label>Endereço</label> <input type="text" th:field="*{endereco}">
-				<p th:errors="*{endereco}"></p>
+				<label>Endereço</label> <input type="text" th:field="*{endereco}" required>
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>

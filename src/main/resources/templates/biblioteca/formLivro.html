@@ -20,24 +20,19 @@
 				<input type="hidden" th:field="*{id}" readonly="readonly">
 			</div>
 			<div>
-				<label>Título</label> <input type="text" th:field="*{titulo}">
-				<p th:errors="*{titulo}"></p>
+				<label>Título</label> <input type="text" th:field="*{titulo}" required>
 			</div>
 			<div>
-				<label>Autor</label> <input type="text" th:field="*{autor}">
-				<p th:errors="*{autor}"></p>
+				<label>Autor</label> <input type="text" th:field="*{autor}" required>
 			</div>
 			<div>
-				<label>Editora</label> <input type="text" th:field="*{editora}">
-				<p th:errors="*{editora}"></p>
+				<label>Editora</label> <input type="text" th:field="*{editora}" required>
 			</div>
 			<div>
-				<label>Ano de Publicação</label> <input type="text" th:field="*{anoPublicado}">
-				<p th:errors="*{anoPublicado}"></p>
+				<label>Ano de Publicação</label> <input type="text" th:field="*{anoPublicado}" required>
 			</div>
 			<div>
-				<label>Edição</label> <input type="text" th:field="*{edicao}">
-				<p th:errors="*{edicao}"></p>
+				<label>Edição</label> <input type="text" th:field="*{edicao}" required>
 			</div>
 			<div>
 				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
