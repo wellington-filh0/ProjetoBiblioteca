@@ -41,10 +41,10 @@ public class BibliotecaController {
 	@PostMapping("/adicionarLivro")
 	public String adicionarLivro(@Valid Livro livro, BindingResult result, RedirectAttributes attributes) {
 
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return formLivro(livro);
 		}
-		
+
 		System.out.println(livro);
 		lr.save(livro);
 		attributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
@@ -108,19 +108,20 @@ public class BibliotecaController {
 	}
 
 	// ADICIONANDO ALUNO
-	
+
 	@GetMapping("/biblioteca/adicionarAluno")
 	public String adicionarAluno(Aluno aluno) {
 		return "biblioteca/formAluno";
 	}
 
 	@PostMapping("/biblioteca/adicionarAluno")
-	public String adicionarAluno(Long idLivro, @Valid Aluno aluno, BindingResult result, RedirectAttributes attributes) {
+	public String adicionarAluno(Long idLivro, @Valid Aluno aluno, BindingResult result,
+			RedirectAttributes attributes) {
 
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			return adicionarAluno(aluno);
 		}
-		
+
 		System.out.println(aluno);
 		ar.save(aluno);
 		attributes.addFlashAttribute("mensagem", "Aluno salvo com sucesso!");
@@ -183,6 +184,8 @@ public class BibliotecaController {
 	public String finalizarEmprestimo(Long id, RedirectAttributes attributes) {
 		Optional<Emprestimo> emprestimoOpt = er.findById(id);
 
+		
+
 		if (emprestimoOpt.isPresent()) {
 			Emprestimo emprestimo = emprestimoOpt.get();
 
@@ -204,8 +207,8 @@ public class BibliotecaController {
 	public String apagarAluno(@PathVariable Long id, RedirectAttributes attributes) {
 		Optional<Aluno> opt = ar.findById(id);
 		Aluno aluno = opt.get();
-		
-		if(!er.findByAluno(aluno).isEmpty()) {
+
+		if (!er.findByAluno(aluno).isEmpty()) {
 			System.out.println("Possui empréstimos");
 			attributes.addFlashAttribute("mensagem", "O aluno possui empréstimos ativos!");
 			return "redirect:/biblioteca/listaAlunos";
@@ -225,8 +228,8 @@ public class BibliotecaController {
 	public String apagarLivro(@PathVariable Long id, RedirectAttributes attributes) {
 		Optional<Livro> opt = lr.findById(id);
 		Livro livro = opt.get();
-		
-		if(!er.findByLivro(livro).isEmpty()) {
+
+		if (!er.findByLivro(livro).isEmpty()) {
 			System.out.println("Possui empréstimos");
 			attributes.addFlashAttribute("mensagem", "O livro se encontra emprestado no momento!");
 			return "redirect:/biblioteca/listaLivros";
@@ -239,46 +242,46 @@ public class BibliotecaController {
 
 		return "redirect:/biblioteca/listaLivros";
 	}
-	
-	//SELECIONAR LIVRO
-	
+
+	// SELECIONAR LIVRO
+
 	@GetMapping("/biblioteca/selecionarLivro/{id}")
 	public ModelAndView selecionarLivro(@PathVariable Long id) {
 		ModelAndView md = new ModelAndView();
 		Optional<Livro> opt = lr.findById(id);
-		
-		if(opt.isEmpty()) {			
+
+		if (opt.isEmpty()) {
 			md.setViewName("redirect:/biblioteca/listaLivros");
-			return md;			
+			return md;
 		}
-		
+
 		Livro livro = opt.get();
-		
+
 		md.setViewName("biblioteca/formLivro");
 		md.addObject("livro", livro);
-		
+
 		return md;
 
 	}
-	
-	//SELECIONAR ALUNO
-	
-		@GetMapping("/biblioteca/selecionarAluno/{id}")
-		public ModelAndView selecionarAluno(@PathVariable Long id) {
-			ModelAndView md = new ModelAndView();
-			Optional<Aluno> opt = ar.findById(id);
-			
-			if(opt.isEmpty()) {			
-				md.setViewName("redirect:/biblioteca/listaAlunos");
-				return md;			
-			}
-			
-			Aluno aluno = opt.get();			
-			md.setViewName("biblioteca/formAluno");
-			md.addObject("aluno", aluno);
-			
-			return md;
 
+	// SELECIONAR ALUNO
+
+	@GetMapping("/biblioteca/selecionarAluno/{id}")
+	public ModelAndView selecionarAluno(@PathVariable Long id) {
+		ModelAndView md = new ModelAndView();
+		Optional<Aluno> opt = ar.findById(id);
+
+		if (opt.isEmpty()) {
+			md.setViewName("redirect:/biblioteca/listaAlunos");
+			return md;
 		}
+
+		Aluno aluno = opt.get();
+		md.setViewName("biblioteca/formAluno");
+		md.addObject("aluno", aluno);
+
+		return md;
+
+	}
 
 }
